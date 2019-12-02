@@ -65,7 +65,7 @@
 <meta property="og:site_name">
 <meta property="og:description" content="hardware inforyzen 2600, b450m-ds3h, gtx-970 os infoubuntu 18.04.3, gnome3.28.2, kernal5.0.0-25-generic Problem DescriptionSince I bulid the brand new PC except my old gpu. I suffered contantly, frequ">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-22T12:45:51.405Z">
+<meta property="og:updated_time" content="2019-12-02T05:43:22.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="about gnome and gpu crash">
 <meta name="twitter:description" content="hardware inforyzen 2600, b450m-ds3h, gtx-970 os infoubuntu 18.04.3, gnome3.28.2, kernal5.0.0-25-generic Problem DescriptionSince I bulid the brand new PC except my old gpu. I suffered contantly, frequ">
@@ -262,7 +262,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-22 20:45:51" itemprop="dateModified" datetime="2019-11-22T20:45:51+08:00">2019-11-22</time>
+                <time title="Modified: 2019-12-02 13:43:22" itemprop="dateModified" datetime="2019-12-02T13:43:22+08:00">2019-12-02</time>
               </span>
             
           
@@ -310,6 +310,10 @@
 <h2 id="Updated-info"><a href="#Updated-info" class="headerlink" title="Updated info"></a>Updated info</h2><p>2019-10-20, ubuntu,amd,1660ti. 60hdmi. start crash again, about 10 times in two hours. don’t know why.</p>
 <p>2019-10-20 to 10-31, after change Memory-bar from slot 3 to slot 1. stable till 10-31. then cannot start-up, BIOS show ROM not loaded. then change to slot 3, start-up but sometimes freeze. now using slot 2 stable.</p>
 <p>2019-11-20, crash again, after try different slots, finally slot 3 works.</p>
+<p>2019-12-2, crash, change slots, not work. boot info: couldn’t find UEFI db list. and some filesystem error. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsck -f /dev/sda2</span><br></pre></td></tr></table></figure>
+
+<p>after fixing, reboot. work. The problem is might related to BIOS secure boot should be disabled.</p>
 
     </div>
 
