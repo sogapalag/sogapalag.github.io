@@ -209,6 +209,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2019/12/20/Mobius-Inversion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaopeng Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/20/Mobius-Inversion/" class="post-title-link" itemprop="url">Mobius Inversion</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-20 20:13:05 / Modified: 23:53:28" itemprop="dateCreated datePublished" datetime="2019-12-20T20:13:05+08:00">2019-12-20</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This note is about number theory related to poset(or lattice), i.e. on $(\mathbb{N}^+, |)$. where $|$ is correspoding to $\leq$, gcd c.to meet $x\wedge y$, lcm c.to join $x\vee y$. According to lattice theory, we has some zeta and mobius transform properties. Besides another useful lattice is $(S, \subseteq)$ which also has those properties. Anyway this lecture is focus on number theory.</p>
+<h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><p>Check wiki for: mobius function $\mu$, euler totient function $\phi$.</p>
+<p>Zeta transform(on subset, down): $F(n) = \sum_{d|n} f(d)$. write as $F=\boldsymbol{Z}f$.</p>
+<p>Mobius transform(inversion): $f(n) = \sum_{d|n} \mu(n/d) F[d]$. w.as $f = \boldsymbol{M}F$.</p>
+<p>Zeta transform(on superset, up): $F(d) = \sum_{d|n} f(n)$. w.as $F=\boldsymbol{Z}_p f$.</p>
+<p>Mobius transform(up): $f(d) = \sum_{d|n} \mu(n/d)F(n)$. w.as $f=\boldsymbol{M}_p F$.</p>
+<p>Dirichlet convolution: $(f*g)(n) = \sum_{d|n} f(d)g(n/d)$.</p>
+<p>And some basic function: $\epsilon(n) = [n=1]$, $I(n) = n$. $1(n) = 1$. $d(n)=\sum_{d|n}1$. </p>
+<p>Also transform can be written in Dirichlet convolution form:<br>\begin{align} F = \boldsymbol{Z}f \Leftrightarrow F = f*1 = 1*f  \\<br>   f = \boldsymbol{M}F \Leftrightarrow f = F*\mu = \mu*F<br>\end{align}</p>
+<p>Basic relations:<br>\begin{align} \boldsymbol{MZ} = \boldsymbol{ZM} = I \\<br>   \boldsymbol{M_pZ_p} = \boldsymbol{Z_pM_p} = I \\<br>   \epsilon = \boldsymbol{Z}\mu = \mu*1 \\<br>   I = \boldsymbol{Z}\phi = \phi*1 \Leftrightarrow \phi = \boldsymbol{M}I = \mu * I<br>\end{align}</p>
+<h2 id="Useful-formula"><a href="#Useful-formula" class="headerlink" title="Useful formula"></a>Useful formula</h2><p>\begin{align} \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^c d(ijk) = \sum_{i|a,j|b,k|c}[(i,j)=1][(i,k)=1][(j,k)=1] = \sum_{(i,j)=1,(i,k)=1,(j,k)=1} \lfloor \frac{a}{i}\rfloor \lfloor \frac{b}{j} \rfloor \lfloor \frac{c}{k} \rfloor \end{align}, where $(i,j)$ means $gcd(i,j)$. <a href="https://blog.csdn.net/V5ZSQ/article/details/78951025" target="_blank" rel="noopener">chinese proof</a>, <a href="http://rng.gozaru.jp/b.pdf" target="_blank" rel="noopener">english proof</a>. example <a href="https://codeforces.com/problemset/problem/235/E" target="_blank" rel="noopener">cf235e</a>.</p>
+<p>\begin{align} \sum I\cdot f = \sum \phi \cdot F_p \end{align}. where $F_p=\boldsymbol{Z_p} f$. before give proof, let us define a notation, $z=\sum_{d|n}$, $m=z \mu(n/d)=\sum_{d|n}\mu(n/d)$, view it as $(d,n)$ space constraints. Now we can write transform also as:</p>
+<p>zeta: $F(n)=zf(d)$</p>
+<p>mobius: $f(n)=mF(d)$</p>
+<p>zeta(up): $F(d)=zf(n)$</p>
+<p>mobius(up): $f(d)=mF(n)$</p>
+<details>
+<summary> proof </summary>
+\begin{align}\sum_{d=1}^N I(d) f(d) &= \sum_{d=1}^N I(d) m F(n) \\\\
+  &= z I(d)\mu(n/d) F(n) \\\\
+  &= \sum_{n=1}^N F(n) z \mu(n/d)I(d) \\\\
+  &= \sum_{n=1}^N F(n) mI(d) \\\\
+  &= \sum_{n=1}^N F(n) \phi(n)
+\end{align}
+or if you view as all the sum as constraint, do it without fear
+\begin{align} \sum I(d)f(d) &= \sum I(d)mF(n) \\\\
+  &= \sum F(n) mI(d) \\\\
+  &= \sum F(n)\phi(n)
+\end{align}
+</details>
+
+<p>example <a href="https://codeforces.com/contest/645/problem/F" target="_blank" rel="noopener">cf645f</a></p>
+<p>And we can generalized above formula<br>\begin{align} \sum f\cdot g = \sum F_p \cdot G = \sum F \cdot G_p<br>\end{align}<br>with $I=\sigma*\mu$, $1=d*\mu$.</p>
+<p>\begin{align} \boldsymbol{Z}^r = {\text{multi-chains of length }r}<br>\end{align}<br>i.e. if $F(n)=\boldsymbol{Z}^{r+1} f(d)$, then $F(n)=\boldsymbol{Z} c(n\rightarrow d)f(d)$, where $c(n\rightarrow d)$ is count of lattice $n$ down to $d$. hint: prime independent, distribute exponents on $r$ edges. example <a href="https://codeforces.com/problemset/problem/757/E" target="_blank" rel="noopener">cf757e</a></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2019/10/18/How-to-hit-codeforces-rating-2000-in-half-year/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -563,7 +695,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -611,7 +743,19 @@
         
           
         
-        <span class="site-state-item-count">8</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -712,6 +856,8 @@
 
 
   
+    
+      
     
       
     
