@@ -209,6 +209,131 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2020/01/07/Inclusion-Exclusion-Principle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaopeng Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/07/Inclusion-Exclusion-Principle/" class="post-title-link" itemprop="url">Inclusion Exclusion Principle</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-07 22:33:11 / Modified: 23:54:50" itemprop="dateCreated datePublished" datetime="2020-01-07T22:33:11+08:00">2020-01-07</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$, since infinite set is less used in competitive programming. Anyway, now we focus on poset $(\Omega=2^{[n]}, \subseteq)$. And we will discuss its variation and related problem.</p>
+<h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><p>Before given the most popular formula, I just give the general formulas. and I will use $D\subseteq N$ notation, for similar to nt $d|n$, one can aware which is subset, which is superset.</p>
+<p>Zeta transform(subset, down): $F(N) = \sum_{D\subseteq N} f(D)$. write as $F=\boldsymbol{Z}f$. or $F(N)=zf(D)$.</p>
+<p>Mobius transform(inversion): $f(N) = \sum_{D\subseteq N} (-1)^{|N - D|} F(D)$. w.as $f = \boldsymbol{M}F$. or $f(N)=mF(D)$.</p>
+<p>Zeta transform(on superset, up): $F(D) = \sum_{D\subseteq N} f(N)$. w.as $F=\boldsymbol{Z}_p f$. or $F(D)=zf(N)$.</p>
+<p>Mobius transform(up): $f(D) = \sum_{D\subseteq N} (-1)^{|N-D|}F(N)$. w.as $f=\boldsymbol{M}_p F$. or $f(D)=mF(N)$.</p>
+<p>basic relations:<br>\begin{align} \boldsymbol{MZ} = \boldsymbol{ZM} = I \\<br>   \boldsymbol{M_pZ_p} = \boldsymbol{Z_pM_p} = I<br>\end{align}</p>
+<hr>
+<p><strong>popular form</strong>:</p>
+<p>we use notation $A_J = \bigcap_{j\in J} A_j$.</p>
+<p>\begin{align}<br>  |\bigcup_{i\in [n]} A_i| = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} |A_J| \\<br>  |\bigcap_{i\in [n]} A_i^c| = |S -\bigcup_{i\in [n]} A_i | = |S| + \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|} |A_J|<br>\end{align}</p>
+<details>
+<summary> corresponding to general form </summary>
+  note $|A_J|$ is number of with properties superset to $J$, denote as $F(J)$. so recall $Z_p$. second formula LHS is $f(\emptyset)$ with zero property.
+</details>
+
+<p>and we sometimes use probability form by replace $|.|$ with prob$(.)$.</p>
+<hr>
+<p><strong>maximum minimum identity</strong>:</p>
+<p>we use notation $\min x_J = \min_{j\in J} x_j$.<br>\begin{align}<br>  \max \{ x_1, x_2, …, x_n \} = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\min x_J \\<br>  \min \{ x_1, x_2, …, x_n \} = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\max x_J<br>\end{align}</p>
+<details>
+<summary> proof hint </summary>
+let $U$ uniform r.v., let $A_i=\{ U < x_i \}$. detail could be find on "A first course in probability".
+</details>
+
+<p>random variable $X_i$ still hold. i.e.<br>\begin{align}<br>  \max_{i\in [n]} X_i = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\min X_J \\<br>  \min_{i\in [n]} X_i = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\max X_J<br>\end{align}</p>
+<p>by linearty of expectation, we can attach $E$ get<br>\begin{align}<br>  E[\max_{i\in [n]} X_i] = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} E[\min X_J] \\<br>  E[\min_{i\in [n]} X_i] = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} E[\max X_J]<br>\end{align}</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2019/12/20/Mobius-Inversion/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -245,11 +370,21 @@
                 
               
 
-              <time title="Created: 2019-12-20 20:13:05 / Modified: 23:56:48" itemprop="dateCreated datePublished" datetime="2019-12-20T20:13:05+08:00">2019-12-20</time>
+              <time title="Created: 2019-12-20 20:13:05" itemprop="dateCreated datePublished" datetime="2019-12-20T20:13:05+08:00">2019-12-20</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-07 23:57:47" itemprop="dateModified" datetime="2020-01-07T23:57:47+08:00">2020-01-07</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -291,6 +426,7 @@
 <p>Also transform can be written in Dirichlet convolution form:<br>\begin{align} F = \boldsymbol{Z}f \Leftrightarrow F = f*1 = 1*f  \\<br>   f = \boldsymbol{M}F \Leftrightarrow f = F*\mu = \mu*F<br>\end{align}</p>
 <p>Basic relations:<br>\begin{align} \boldsymbol{MZ} = \boldsymbol{ZM} = I \\<br>   \boldsymbol{M_pZ_p} = \boldsymbol{Z_pM_p} = I \\<br>   \epsilon = \boldsymbol{Z}\mu = \mu*1 \\<br>   I = \boldsymbol{Z}\phi = \phi*1 \Leftrightarrow \phi = \boldsymbol{M}I = \mu * I<br>\end{align}</p>
 <h2 id="Useful-formula"><a href="#Useful-formula" class="headerlink" title="Useful formula"></a>Useful formula</h2><p>\begin{align} \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^c d(ijk) = \sum_{i|a,j|b,k|c}[(i,j)=1][(i,k)=1][(j,k)=1] = \sum_{(i,j)=1,(i,k)=1,(j,k)=1} \lfloor \frac{a}{i}\rfloor \lfloor \frac{b}{j} \rfloor \lfloor \frac{c}{k} \rfloor \end{align}, where $(i,j)$ means $gcd(i,j)$. <a href="https://blog.csdn.net/V5ZSQ/article/details/78951025" target="_blank" rel="noopener">chinese proof</a>, <a href="http://rng.gozaru.jp/b.pdf" target="_blank" rel="noopener">english proof</a>. example <a href="https://codeforces.com/problemset/problem/235/E" target="_blank" rel="noopener">cf235e</a>.</p>
+<hr>
 <p>\begin{align} \sum I\cdot f = \sum \phi \cdot F_p \end{align}. where $F_p=\boldsymbol{Z_p} f$. before give proof, let us define a notation, $z=\sum_{d|n}$, $m=z \mu(n/d)=\sum_{d|n}\mu(n/d)$, view it as $(d,n)$ space constraints. Now we can write transform also as:</p>
 <p>zeta: $F(n)=zf(d)$</p>
 <p>mobius: $f(n)=mF(d)$</p>
@@ -313,6 +449,7 @@ or if you view as all the sum as constraint, do it without fear
 
 <p>example <a href="https://codeforces.com/contest/645/problem/F" target="_blank" rel="noopener">cf645f</a></p>
 <p>And we can generalized above formula<br>\begin{align} \sum f\cdot G = \sum F_p \cdot g<br>\end{align}<br>with $I=\sigma*\mu$, $1=d*\mu$.</p>
+<hr>
 <p>\begin{align} \boldsymbol{Z}^r = {\text{multi-chains of length }r}<br>\end{align}<br>i.e. if $F(n)=\boldsymbol{Z}^{r+1} f(d)$, then $F(n)=\boldsymbol{Z} c(n\rightarrow d)f(d)$, where $c(n\rightarrow d)$ is count of lattice $n$ down to $d$. hint: prime independent, distribute exponents on $r$ edges. example <a href="https://codeforces.com/problemset/problem/757/E" target="_blank" rel="noopener">cf757e</a></p>
 
           
@@ -695,7 +832,7 @@ or if you view as all the sum as constraint, do it without fear
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -755,7 +892,13 @@ or if you view as all the sum as constraint, do it without fear
         
           
         
-        <span class="site-state-item-count">14</span>
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -790,7 +933,7 @@ or if you view as all the sum as constraint, do it without fear
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -856,6 +999,8 @@ or if you view as all the sum as constraint, do it without fear
 
 
   
+    
+      
     
       
     

@@ -58,14 +58,14 @@
 </script>
 
   <meta name="description" content="IntroductionThis note is about number theory related to poset(or lattice), i.e. on $(\mathbb{N}^+, |)$. where $|$ is correspoding to $\leq$, gcd c.to meet $x\wedge y$, lcm c.to join $x\vee y$. Accordi">
-<meta name="keywords" content="combinatorics,orderings,number theory,mobius,transform,gcd,lattice,convolution">
+<meta name="keywords" content="combinatorics,mobius,number theory,transform,gcd,lattice,orderings,convolution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mobius Inversion">
 <meta property="og:url" content="https://sogapalag.github.io/2019/12/20/Mobius-Inversion/index.html">
 <meta property="og:site_name">
 <meta property="og:description" content="IntroductionThis note is about number theory related to poset(or lattice), i.e. on $(\mathbb{N}^+, |)$. where $|$ is correspoding to $\leq$, gcd c.to meet $x\wedge y$, lcm c.to join $x\vee y$. Accordi">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-20T15:56:48.545Z">
+<meta property="og:updated_time" content="2020-01-07T15:57:47.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mobius Inversion">
 <meta name="twitter:description" content="IntroductionThis note is about number theory related to poset(or lattice), i.e. on $(\mathbb{N}^+, |)$. where $|$ is correspoding to $\leq$, gcd c.to meet $x\wedge y$, lcm c.to join $x\vee y$. Accordi">
@@ -249,11 +249,21 @@
                 
               
 
-              <time title="Created: 2019-12-20 20:13:05 / Modified: 23:56:48" itemprop="dateCreated datePublished" datetime="2019-12-20T20:13:05+08:00">2019-12-20</time>
+              <time title="Created: 2019-12-20 20:13:05" itemprop="dateCreated datePublished" datetime="2019-12-20T20:13:05+08:00">2019-12-20</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-07 23:57:47" itemprop="dateModified" datetime="2020-01-07T23:57:47+08:00">2020-01-07</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -294,6 +304,7 @@
 <p>Also transform can be written in Dirichlet convolution form:<br>\begin{align} F = \boldsymbol{Z}f \Leftrightarrow F = f*1 = 1*f  \\<br>   f = \boldsymbol{M}F \Leftrightarrow f = F*\mu = \mu*F<br>\end{align}</p>
 <p>Basic relations:<br>\begin{align} \boldsymbol{MZ} = \boldsymbol{ZM} = I \\<br>   \boldsymbol{M_pZ_p} = \boldsymbol{Z_pM_p} = I \\<br>   \epsilon = \boldsymbol{Z}\mu = \mu*1 \\<br>   I = \boldsymbol{Z}\phi = \phi*1 \Leftrightarrow \phi = \boldsymbol{M}I = \mu * I<br>\end{align}</p>
 <h2 id="Useful-formula"><a href="#Useful-formula" class="headerlink" title="Useful formula"></a>Useful formula</h2><p>\begin{align} \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^c d(ijk) = \sum_{i|a,j|b,k|c}[(i,j)=1][(i,k)=1][(j,k)=1] = \sum_{(i,j)=1,(i,k)=1,(j,k)=1} \lfloor \frac{a}{i}\rfloor \lfloor \frac{b}{j} \rfloor \lfloor \frac{c}{k} \rfloor \end{align}, where $(i,j)$ means $gcd(i,j)$. <a href="https://blog.csdn.net/V5ZSQ/article/details/78951025" target="_blank" rel="noopener">chinese proof</a>, <a href="http://rng.gozaru.jp/b.pdf" target="_blank" rel="noopener">english proof</a>. example <a href="https://codeforces.com/problemset/problem/235/E" target="_blank" rel="noopener">cf235e</a>.</p>
+<hr>
 <p>\begin{align} \sum I\cdot f = \sum \phi \cdot F_p \end{align}. where $F_p=\boldsymbol{Z_p} f$. before give proof, let us define a notation, $z=\sum_{d|n}$, $m=z \mu(n/d)=\sum_{d|n}\mu(n/d)$, view it as $(d,n)$ space constraints. Now we can write transform also as:</p>
 <p>zeta: $F(n)=zf(d)$</p>
 <p>mobius: $f(n)=mF(d)$</p>
@@ -316,6 +327,7 @@ or if you view as all the sum as constraint, do it without fear
 
 <p>example <a href="https://codeforces.com/contest/645/problem/F" target="_blank" rel="noopener">cf645f</a></p>
 <p>And we can generalized above formula<br>\begin{align} \sum f\cdot G = \sum F_p \cdot g<br>\end{align}<br>with $I=\sigma*\mu$, $1=d*\mu$.</p>
+<hr>
 <p>\begin{align} \boldsymbol{Z}^r = {\text{multi-chains of length }r}<br>\end{align}<br>i.e. if $F(n)=\boldsymbol{Z}^{r+1} f(d)$, then $F(n)=\boldsymbol{Z} c(n\rightarrow d)f(d)$, where $c(n\rightarrow d)$ is count of lattice $n$ down to $d$. hint: prime independent, distribute exponents on $r$ edges. example <a href="https://codeforces.com/problemset/problem/757/E" target="_blank" rel="noopener">cf757e</a></p>
 
     </div>
@@ -330,17 +342,17 @@ or if you view as all the sum as constraint, do it without fear
         <div class="post-tags">
             <a href="/tags/combinatorics/" rel="tag"># combinatorics</a>
           
-            <a href="/tags/orderings/" rel="tag"># orderings</a>
+            <a href="/tags/mobius/" rel="tag"># mobius</a>
           
             <a href="/tags/number-theory/" rel="tag"># number theory</a>
-          
-            <a href="/tags/mobius/" rel="tag"># mobius</a>
           
             <a href="/tags/transform/" rel="tag"># transform</a>
           
             <a href="/tags/gcd/" rel="tag"># gcd</a>
           
             <a href="/tags/lattice/" rel="tag"># lattice</a>
+          
+            <a href="/tags/orderings/" rel="tag"># orderings</a>
           
             <a href="/tags/convolution/" rel="tag"># convolution</a>
           
@@ -356,6 +368,10 @@ or if you view as all the sum as constraint, do it without fear
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/01/07/Inclusion-Exclusion-Principle/" rel="prev" title="Inclusion Exclusion Principle">
+                Inclusion Exclusion Principle <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -407,7 +423,7 @@ or if you view as all the sum as constraint, do it without fear
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -467,7 +483,13 @@ or if you view as all the sum as constraint, do it without fear
         
           
         
-        <span class="site-state-item-count">14</span>
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -519,7 +541,7 @@ or if you view as all the sum as constraint, do it without fear
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

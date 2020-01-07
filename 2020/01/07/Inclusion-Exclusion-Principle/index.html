@@ -57,18 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="From 0 to 2000  0 means competitive programming newbie. Although I graduate from CS colledge, then after waste another several years, I didn’t remember anything useful. I’ve writen less 1000 lines cod">
+  <meta name="description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
+<meta name="keywords" content="combinatorics,IEP,mobius,zeta,counting">
 <meta property="og:type" content="article">
-<meta property="og:title" content="How to hit codeforces rating 2000 in half year">
-<meta property="og:url" content="https://sogapalag.github.io/2019/10/18/How-to-hit-codeforces-rating-2000-in-half-year/index.html">
+<meta property="og:title" content="Inclusion Exclusion Principle">
+<meta property="og:url" content="https://sogapalag.github.io/2020/01/07/Inclusion-Exclusion-Principle/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="From 0 to 2000  0 means competitive programming newbie. Although I graduate from CS colledge, then after waste another several years, I didn’t remember anything useful. I’ve writen less 1000 lines cod">
+<meta property="og:description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-18T07:06:11.237Z">
+<meta property="og:updated_time" content="2020-01-07T15:54:50.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="How to hit codeforces rating 2000 in half year">
-<meta name="twitter:description" content="From 0 to 2000  0 means competitive programming newbie. Although I graduate from CS colledge, then after waste another several years, I didn’t remember anything useful. I’ve writen less 1000 lines cod">
-  <link rel="canonical" href="https://sogapalag.github.io/2019/10/18/How-to-hit-codeforces-rating-2000-in-half-year/">
+<meta name="twitter:title" content="Inclusion Exclusion Principle">
+<meta name="twitter:description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
+  <link rel="canonical" href="https://sogapalag.github.io/2020/01/07/Inclusion-Exclusion-Principle/">
 
 
 <script id="page.configurations">
@@ -77,7 +78,7 @@
   };
 </script>
 
-  <title>How to hit codeforces rating 2000 in half year | </title>
+  <title>Inclusion Exclusion Principle | </title>
   
 
 
@@ -214,7 +215,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2019/10/18/How-to-hit-codeforces-rating-2000-in-half-year/">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2020/01/07/Inclusion-Exclusion-Principle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhaopeng Yan">
@@ -228,7 +229,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">How to hit codeforces rating 2000 in half year
+          <h1 class="post-title" itemprop="name headline">Inclusion Exclusion Principle
 
               
             
@@ -248,12 +249,27 @@
                 
               
 
-              <time title="Created: 2019-10-18 14:16:11 / Modified: 15:06:11" itemprop="dateCreated datePublished" datetime="2019-10-18T14:16:11+08:00">2019-10-18</time>
+              <time title="Created: 2020-01-07 22:33:11 / Modified: 23:54:50" itemprop="dateCreated datePublished" datetime="2020-01-07T22:33:11+08:00">2020-01-07</time>
             </span>
           
             
 
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           <br>
@@ -267,17 +283,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="From-0-to-2000"><a href="#From-0-to-2000" class="headerlink" title="From 0 to 2000"></a>From 0 to 2000</h2><p>  0 means competitive programming newbie. Although I graduate from CS colledge, then after waste another several years, I didn’t remember anything useful. I’ve writen less 1000 lines code, in two years before start contesting. I don’t familiar dijkstra or any basic algorithms. So I’m totally newbie on coding.</p>
-<p>  Well, I’m not 0 much, since I do have some math background.</p>
-<p>  keep practicing, keep contesting, keep upsolving. In the beginning, you need to be familiar plenty of basic algos. dfs/bfs, double pointer, divide&amp;conquer, etc.. and ds like dsu, these might help you to hit 1600.</p>
-<p>  then you need to familiar BIT(Fenwick), segment-tree, bitmask dp.. this might help you to hit 1800.</p>
-<p>  there’re some well-known advanced(than basic, not used very much) algos. here advanced I mean they’re not used very often as BIT. e.g. z’s algo, suffix array, mcmf, 2-sat, CHT, fft, rolling hash, kmp, spaly tree, etc..</p>
-<p>  so advice for learning, based on frequency of problems’ topics.</p>
-<p>  If you leart most algos, and pay consistent practicing, then you will hit 2000 with high probability. Although most problems is not about how to impl, is about how to cut problem to pieces, or find special properties. And if you know many counting technique or combitorial knowledge, might helpful.</p>
-<h2 id="Weakness"><a href="#Weakness" class="headerlink" title="Weakness"></a>Weakness</h2><p>  Since half year is very short time compared to time devoted by expericed contesters. You might stuck at some easy part, but well-known to the community. Coding speedness is matter, and heavy impl is painful. (English reading is cost too much time for non-native speaker)</p>
-<p>  For myself, there’re some problems is hard, but I can solve it when off-contest, some even can’t when off-contest. In general, I don’t think I perform well on contest, there’re always some problems I didn’t solve it on the contest, but solve it off-contest. So perform normal can help me to hit 2000. I believe if pay much time, you will hit higher.</p>
-<p>  By the way, half year ago, for Google kick start contest, I rank 1000~2000, but in last 3 rounds, I rank ~100.</p>
-<h2 id="For-hard-problems"><a href="#For-hard-problems" class="headerlink" title="For hard problems"></a>For hard problems</h2><p>  there’re some problems might beyond your ability now, and you can’t measure whether you can solve it or not. Well I believe more than 80% although you can’t understand in first place, but keep reading editorial, read others’ comments, read others’ code, you will get the idea. It’s all about logic, once you get the key logic, everything is easy then.</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$, since infinite set is less used in competitive programming. Anyway, now we focus on poset $(\Omega=2^{[n]}, \subseteq)$. And we will discuss its variation and related problem.</p>
+<h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><p>Before given the most popular formula, I just give the general formulas. and I will use $D\subseteq N$ notation, for similar to nt $d|n$, one can aware which is subset, which is superset.</p>
+<p>Zeta transform(subset, down): $F(N) = \sum_{D\subseteq N} f(D)$. write as $F=\boldsymbol{Z}f$. or $F(N)=zf(D)$.</p>
+<p>Mobius transform(inversion): $f(N) = \sum_{D\subseteq N} (-1)^{|N - D|} F(D)$. w.as $f = \boldsymbol{M}F$. or $f(N)=mF(D)$.</p>
+<p>Zeta transform(on superset, up): $F(D) = \sum_{D\subseteq N} f(N)$. w.as $F=\boldsymbol{Z}_p f$. or $F(D)=zf(N)$.</p>
+<p>Mobius transform(up): $f(D) = \sum_{D\subseteq N} (-1)^{|N-D|}F(N)$. w.as $f=\boldsymbol{M}_p F$. or $f(D)=mF(N)$.</p>
+<p>basic relations:<br>\begin{align} \boldsymbol{MZ} = \boldsymbol{ZM} = I \\<br>   \boldsymbol{M_pZ_p} = \boldsymbol{Z_pM_p} = I<br>\end{align}</p>
+<hr>
+<p><strong>popular form</strong>:</p>
+<p>we use notation $A_J = \bigcap_{j\in J} A_j$.</p>
+<p>\begin{align}<br>  |\bigcup_{i\in [n]} A_i| = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} |A_J| \\<br>  |\bigcap_{i\in [n]} A_i^c| = |S -\bigcup_{i\in [n]} A_i | = |S| + \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|} |A_J|<br>\end{align}</p>
+<details>
+<summary> corresponding to general form </summary>
+  note $|A_J|$ is number of with properties superset to $J$, denote as $F(J)$. so recall $Z_p$. second formula LHS is $f(\emptyset)$ with zero property.
+</details>
+
+<p>and we sometimes use probability form by replace $|.|$ with prob$(.)$.</p>
+<hr>
+<p><strong>maximum minimum identity</strong>:</p>
+<p>we use notation $\min x_J = \min_{j\in J} x_j$.<br>\begin{align}<br>  \max \{ x_1, x_2, …, x_n \} = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\min x_J \\<br>  \min \{ x_1, x_2, …, x_n \} = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\max x_J<br>\end{align}</p>
+<details>
+<summary> proof hint </summary>
+let $U$ uniform r.v., let $A_i=\{ U < x_i \}$. detail could be find on "A first course in probability".
+</details>
+
+<p>random variable $X_i$ still hold. i.e.<br>\begin{align}<br>  \max_{i\in [n]} X_i = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\min X_J \\<br>  \min_{i\in [n]} X_i = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\max X_J<br>\end{align}</p>
+<p>by linearty of expectation, we can attach $E$ get<br>\begin{align}<br>  E[\max_{i\in [n]} X_i] = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} E[\min X_J] \\<br>  E[\min_{i\in [n]} X_i] = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} E[\max X_J]<br>\end{align}</p>
 
     </div>
 
@@ -286,10 +318,24 @@
     
 
     <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/combinatorics/" rel="tag"># combinatorics</a>
+          
+            <a href="/tags/IEP/" rel="tag"># IEP</a>
+          
+            <a href="/tags/mobius/" rel="tag"># mobius</a>
+          
+            <a href="/tags/zeta/" rel="tag"># zeta</a>
+          
+            <a href="/tags/counting/" rel="tag"># counting</a>
+          
+        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/28/about-gnome-and-gpu-crash/" rel="next" title="about gnome and gpu crash">
-                <i class="fa fa-chevron-left"></i> about gnome and gpu crash
+              <a href="/2019/12/20/Mobius-Inversion/" rel="next" title="Mobius Inversion">
+                <i class="fa fa-chevron-left"></i> Mobius Inversion
               </a>
             
           </div>
@@ -297,10 +343,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/12/20/Mobius-Inversion/" rel="prev" title="Mobius Inversion">
-                Mobius Inversion <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -452,7 +494,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#From-0-to-2000"><span class="nav-number">1.</span> <span class="nav-text">From 0 to 2000</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Weakness"><span class="nav-number">2.</span> <span class="nav-text">Weakness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For-hard-problems"><span class="nav-number">3.</span> <span class="nav-text">For hard problems</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">2.</span> <span class="nav-text">Preliminary</span></a></li></ol></div>
             
 
           </div>
