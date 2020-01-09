@@ -65,7 +65,7 @@
 <meta property="og:site_name">
 <meta property="og:description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-07T15:54:50.346Z">
+<meta property="og:updated_time" content="2020-01-09T07:52:19.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inclusion Exclusion Principle">
 <meta name="twitter:description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
@@ -249,11 +249,21 @@
                 
               
 
-              <time title="Created: 2020-01-07 22:33:11 / Modified: 23:54:50" itemprop="dateCreated datePublished" datetime="2020-01-07T22:33:11+08:00">2020-01-07</time>
+              <time title="Created: 2020-01-07 22:33:11" itemprop="dateCreated datePublished" datetime="2020-01-07T22:33:11+08:00">2020-01-07</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-09 15:52:19" itemprop="dateModified" datetime="2020-01-09T15:52:19+08:00">2020-01-09</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -310,6 +320,22 @@ let $U$ uniform r.v., let $A_i=\{ U < x_i \}$. detail could be find on "A first 
 
 <p>random variable $X_i$ still hold. i.e.<br>\begin{align}<br>  \max_{i\in [n]} X_i = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\min X_J \\<br>  \min_{i\in [n]} X_i = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1}\max X_J<br>\end{align}</p>
 <p>by linearty of expectation, we can attach $E$ get<br>\begin{align}<br>  E[\max_{i\in [n]} X_i] = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} E[\min X_J] \\<br>  E[\min_{i\in [n]} X_i] = \sum_{\emptyset \neq J \subseteq [n]} (-1)^{|J|+1} E[\max X_J]<br>\end{align}</p>
+<h3 id="more-corollary-formulas"><a href="#more-corollary-formulas" class="headerlink" title="more corollary formulas"></a>more corollary formulas</h3><p>Since sometimes corollary might more helpful than vanilla.</p>
+<p>notation: $f_d = \sum_{|D|=d} f(D)$.</p>
+<p>\begin{align}<br>  f_d = \sum_{k=d}^n (-1)^{k-d} {k \choose d} \sum_{|N|=k} F_p(N)<br>\end{align}</p>
+<details>
+<summary> proof </summary>
+"A course in eumeration" page 185. but note that our $f$ is not nessary number of count, is much more general function. recall formual(17) of page 186.
+\begin{align}
+  f_d &= \sum_{|D|=d}f(D) = \sum_{|D|=d}\sum_{D\subseteq N} (-1)^{|N-D|} F_p(N) \\\\
+   &= \sum_{|N|\geq d} (-1)^{|N|-d} \sum_{|D|=d, D\subseteq N} F_p(N) \\\\
+   &= \sum_{k=d}^n (-1)^{k-d} {k\choose d} \sum_{|N|=k} F_p(N)
+\end{align}
+</details>
+
+<p>thus, sometimes we face multi-dimension problem, and want count number with exact $d$ properties, we can use $F_p(N)$ i.e. superset of properties, (or at least the properties) to deduce that.</p>
+<p>when $f(D)$ only depend on its size $|D|=d$. called <strong>homogeneous</strong>. and we use notation $F_{\geq k} = F_p(|N|=k)$. then we get a spectial formula.<br>\begin{align}<br>  f_d = {n\choose d} \sum_{k=d}^n (-1)^{k-d} {n-d \choose k-d} F_{\geq k}<br>\end{align}<br>Be careful $F_{\geq k} = \sum_{K\subseteq X} f(X)$, for some $|K|=k$, $\neq \sum_{|X|\geq k} f(X)$.</p>
+<p>by let $f$ be prob, we can get $E[|D|]=\sum_{|N|=1}F_p(N)$, which is sum of indicators of course.</p>
 
     </div>
 
@@ -494,7 +520,7 @@ let $U$ uniform r.v., let $A_i=\{ U < x_i \}$. detail could be find on "A first 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">2.</span> <span class="nav-text">Preliminary</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">2.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#more-corollary-formulas"><span class="nav-number">2.1.</span> <span class="nav-text">more corollary formulas</span></a></li></ol></li></ol></div>
             
 
           </div>
