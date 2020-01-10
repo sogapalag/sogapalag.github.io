@@ -65,7 +65,7 @@
 <meta property="og:site_name">
 <meta property="og:description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-09T07:52:19.833Z">
+<meta property="og:updated_time" content="2020-01-10T07:31:10.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inclusion Exclusion Principle">
 <meta name="twitter:description" content="IntroductionThis technique is widely used in counting. In general, it is related to poset theory, while mobius on number theory is given in another lecture, so this note is focus on finite set $[n]$,">
@@ -262,7 +262,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-09 15:52:19" itemprop="dateModified" datetime="2020-01-09T15:52:19+08:00">2020-01-09</time>
+                <time title="Modified: 2020-01-10 15:31:10" itemprop="dateModified" datetime="2020-01-10T15:31:10+08:00">2020-01-10</time>
               </span>
             
           
@@ -336,6 +336,41 @@ let $U$ uniform r.v., let $A_i=\{ U < x_i \}$. detail could be find on "A first 
 <p>thus, sometimes we face multi-dimension problem, and want count number with exact $d$ properties, we can use $F_p(N)$ i.e. superset of properties, (or at least the properties) to deduce that.</p>
 <p>when $f(D)$ only depend on its size $|D|=d$. called <strong>homogeneous</strong>. and we use notation $F_{\geq k} = F_p(|N|=k)$. then we get a spectial formula.<br>\begin{align}<br>  f_d = {n\choose d} \sum_{k=d}^n (-1)^{k-d} {n-d \choose k-d} F_{\geq k}<br>\end{align}<br>Be careful $F_{\geq k} = \sum_{K\subseteq X} f(X)$, for some $|K|=k$, $\neq \sum_{|X|\geq k} f(X)$.</p>
 <p>by let $f$ be prob, we can get $E[|D|]=\sum_{|N|=1}F_p(N)$, which is sum of indicators of course.</p>
+<h2 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h2><p>IEP has simple and elegant formula, but problem solving is hard sometimes. The hard part is find suitable space, once this is done, everything will be easy.</p>
+<hr>
+<p><a href="https://csacademy.com/contest/archive/task/distinct_neighbours/" target="_blank" rel="noopener">distinct neighbours</a>, <a href="https://codeforces.com/contest/840/problem/C" target="_blank" rel="noopener">cf840c</a>.</p>
+<details>
+<summary> solution </summary>
+the widely used solution is $O(n^3)$ dp, but there is a $O(n^2)$ IEP solution. the answer is
+\begin{align}
+  \sum_{d\leq a} \prod_{i}(-1)^{a_i-d_i} p(a_i,d_i) {\sum d_i \choose d_i,...}
+\end{align}
+by consider $I_{i,j}$ the $j$th adj-pair of group $i$ is same. And we want $I_0$. where $p(n,k)$ denote ways of $k$ positives sum $=n$. Besides, for this problem, homogeneous on vector $d$.
+</details>
+
+<hr>
+<p><strong>Coupon collector problem</strong></p>
+<p>The classic equal probability can be solved by consider order statistics $1_{(i)}$ the time needed to get next type. Answer is $nH_n$.</p>
+<p><a href="https://csacademy.com/contest/archive/task/ball-sampling/" target="_blank" rel="noopener">unequal probability</a></p>
+<details>
+<summary> solution </summary>
+despite the ordinary $O(n2^n)$ dp. There is IEP $O(\sum a)$. Recall text of "prob", let $I_i$ be the moment collect $i$th type, by max-min identity. The answer is
+\begin{align}
+  E = \sum_{\emptyset\neq J\subseteq [n]} (-1)^{|J|+1}\frac{1}{\sum_{j\in J}p_j}
+\end{align}
+</details>
+
+<p>when type $i$ need reach $b_i$. <a href="https://atcoder.jp/contests/agc038/tasks/agc038_e" target="_blank" rel="noopener">agc038e</a></p>
+<details>
+<summary> solution </summary>
+Give answer first
+\begin{align}
+  E = \sum_{k=1}^n (-1)^{k+1} \sum_{|J|=k,d_j < b_j} \frac{\sum a}{\sum_J a} {\sum_J d \choose d_j,...} \prod_{j} (\frac{a_j}{\sum_J a})^{d_j}
+\end{align}
+Which is easy to understand the form, for fixed size, the probability hit the state, and expectation of lasting time on the state. Make sense, but I didn't find any rigorous proof otherwhere.
+
+<p>First note each roll, we at some state by vector $d=(…)$ where $d_i \leq b_i$, and game ends at $d=b$. Let $I_i$ be the property $d_i &lt; b_i$, i.e. not full yet. Then we want $\bigcup_i I_i$. Thus we can apply IEP, as long as we can get $I_J=\bigcap_{j\in J} I_j$ i.e. the count of $J$ set all not full yet. Which<br>\begin{align}<br>  I_J = \sum_{d_j&lt;b_j} \text{Prob}(\text{hit d}|J) \cdot \text{Eexpected time stay at d}<br>\end{align}<br>Another method is let $X_i$ be the moment $d_i=b_i$ i.e. type $i$ is full. Then by max-min identity, we need get $\min_J X$ which is exactly $I_J$. since find first hit one of $J$ is same to find all $d_j&lt;b_j$.</p>
+</details>
 
     </div>
 
@@ -520,7 +555,7 @@ let $U$ uniform r.v., let $A_i=\{ U < x_i \}$. detail could be find on "A first 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">2.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#more-corollary-formulas"><span class="nav-number">2.1.</span> <span class="nav-text">more corollary formulas</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">2.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#more-corollary-formulas"><span class="nav-number">2.1.</span> <span class="nav-text">more corollary formulas</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problems"><span class="nav-number">3.</span> <span class="nav-text">Problems</span></a></li></ol></div>
             
 
           </div>
