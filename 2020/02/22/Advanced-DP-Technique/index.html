@@ -57,15 +57,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://sogapalag.github.io/categories/index.html">
+  <meta name="description" content="IntroWhat kind of technique is advanced? Some well-known tech like, bitmask, bitset, digit, segment, I might not include it. And dp with monotonic queue, segment-tree, convex-hull are well known, too;">
+<meta name="keywords" content="dp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced DP Technique">
+<meta property="og:url" content="https://sogapalag.github.io/2020/02/22/Advanced-DP-Technique/index.html">
 <meta property="og:site_name">
+<meta property="og:description" content="IntroWhat kind of technique is advanced? Some well-known tech like, bitmask, bitset, digit, segment, I might not include it. And dp with monotonic queue, segment-tree, convex-hull are well known, too;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-13T11:39:25.390Z">
+<meta property="og:updated_time" content="2020-02-22T12:32:26.448Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-  <link rel="canonical" href="https://sogapalag.github.io/categories/">
+<meta name="twitter:title" content="Advanced DP Technique">
+<meta name="twitter:description" content="IntroWhat kind of technique is advanced? Some well-known tech like, bitmask, bitset, digit, segment, I might not include it. And dp with monotonic queue, segment-tree, convex-hull are well known, too;">
+  <link rel="canonical" href="https://sogapalag.github.io/2020/02/22/Advanced-DP-Technique/">
 
 
 <script id="page.configurations">
@@ -74,7 +78,7 @@
   };
 </script>
 
-  <title>categories | </title>
+  <title>Advanced DP Technique | </title>
   
 
 
@@ -168,7 +172,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
       
     
 
@@ -200,80 +204,134 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2020/02/22/Advanced-DP-Technique/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaopeng Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">categories
-
-</h1>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <div class="category-all-page">
-            <div class="category-all-title">
+          <h1 class="post-title" itemprop="name headline">Advanced DP Technique
+
               
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
               
                 
-                  
+              
+
+              <time title="Created: 2020-02-22 19:04:42 / Modified: 20:32:26" itemprop="dateCreated datePublished" datetime="2020-02-22T19:04:42+08:00">2020-02-22</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
+
+                
                 
               
-              1 category in total
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/lecture/">lecture</a><span class="category-list-count">5</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-      
-      
+        <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>What kind of technique is advanced? Some well-known tech like, bitmask, bitset, digit, segment, I might not include it. And dp with monotonic queue, segment-tree, convex-hull are well known, too; but I might include it. For now, I wish include it about codeforces-2500 or atcoder-1000.</p>
+<h3 id="abs-cost-adj-constraints"><a href="#abs-cost-adj-constraints" class="headerlink" title="abs-cost, adj-constraints"></a>abs-cost, adj-constraints</h3><p>Problem description: given $z_{1..n}$, try mini $\sum_{i} |z_i - x_i|$, with adj-constratins, $x_{i-1} \in [x_i-l_i, x_i+r_i]$<br>example: <a href="https://codeforces.com/contest/372/problem/C" target="_blank" rel="noopener">cf372c</a>, <a href="https://atcoder.jp/contests/arc070/tasks/arc070_c" target="_blank" rel="noopener">arc070e</a>, <a href="https://codeforces.com/contest/713/problem/C" target="_blank" rel="noopener">cf713c</a><br>\begin{align}<br>  dp[i][x] = |z_i - x| + \min_{x’ \in [x-l_i, x+r_i]}dp[i-1][x’]<br>\end{align}</p>
+<details>
+<summary> solution $O(n \log n)$ </summary>
+let $f_i(x) = dp[i][x]$, the key conclusion is $f_i(x)$ is a segline function with slope $-i,-i+1,..,-1,0,1,..i-1,i$. first it's easy to note segline function plus $|z-x|$ is segline function, since it make left/right slope $-+1$.
+
+<p>now we use two heap maintain slope $\leq 0$ and $\geq 0$ turnning points. call it L/R part. let $L_0$ be L.top(), i.e. slope $-1,0$ turnning point, note if $x+r_i \leq L_0$, means whole valid range fall into L part, if $x-l_i \geq R_0$, fall into R part, other case the range contain part of slope 0. Thus<br>\begin{align}<br>  g(x) = \min_{x’\in[x-l_i, x+r_i]} f_{i-1}(x’) =<br>  \begin{cases}<br>    f_{i-1}(x + r_i), x+r_i \leq L_0  \\<br>    f_{i-1}(x - l_i), x-l_i \geq R_0  \\<br>    C=f_{i-1}(L_0)=f_{i-1}(R_0), \text{otherwise}<br>  \end{cases}<br>\end{align}<br>i.e. $g(x)$ is obtained by shift L $-r_i$, and shift R $l_i$.</p>
+<p>then for $|z-x|$, we consider which part $z$ fall into, push new turnning point, and update $C$.</p>
+</details>
+
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/dp/" rel="tag"># dp</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/02/22/Complexity-Analysis-of-DP-on-Tree/" rel="next" title="Complexity Analysis of DP on Tree">
+                <i class="fa fa-chevron-left"></i> Complexity Analysis of DP on Tree
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
   </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -288,8 +346,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -397,6 +464,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro"><span class="nav-number">1.</span> <span class="nav-text">Intro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#abs-cost-adj-constraints"><span class="nav-number">1.1.</span> <span class="nav-text">abs-cost, adj-constraints</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
