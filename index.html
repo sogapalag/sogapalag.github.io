@@ -209,6 +209,121 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaopeng Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/" class="post-title-link" itemprop="url">A Brief Discussion on Fenwick Tree</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-30 00:10:47 / Modified: 00:26:00" itemprop="dateCreated datePublished" datetime="2021-03-30T00:10:47+08:00">2021-03-30</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/implementation/" itemprop="url" rel="index"><span itemprop="name">implementation</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Fenwick tree(aka. binary index tree, BIT), which core technique is about LSB(least significant bit) manipulation.<br>Each index has the form $p+2^k$, when doing add operation, it moves to next index $p+2^k+2^k$.</p>
+<h3 id="Corollary"><a href="#Corollary" class="headerlink" title="Corollary"></a>Corollary</h3><blockquote>
+<p>Index $p+2^k$ guards $p+[2^k]$.</p>
+</blockquote>
+<p>i.e. $p+2^k$ stores operations of $p+x, \forall x, 1\leq x\leq 2^k$.</p>
+<p>Thus sum works by $\sum_{i\in[p+2^k]} = \sum_{i\in[p]} + \sum_{i\in p+[2^k]}$.</p>
+<h2 id="Algebraic-structure"><a href="#Algebraic-structure" class="headerlink" title="Algebraic structure"></a>Algebraic structure</h2><p>Before to explore additional implementation, let us talk about algebra a little, which I will write another blog to explain more. But for now, just a little.</p>
+<h3 id="Monoid"><a href="#Monoid" class="headerlink" title="Monoid"></a>Monoid</h3><p>If you familiar with fenwick tree, you might know the widely used <em>add</em> operation is not only <em>add</em>, but also <em>max</em> and <em>min</em> could be. They’re indeed <strong>monoid</strong>.</p>
+<p>Now let’s abstract them.</p>
+<ul>
+<li>$a_i + x$. =&gt; $a_i * x$. where $*$ as general monoid operation.</li>
+<li>sum prefix. =&gt; $((a_0 * a_1) *\cdots *a_n)$. work by the associativity.</li>
+</ul>
+<p>One can realize we can use <em>sub</em> for non-prefix range when using <em>add</em>, but not the case <em>max</em> or <em>min</em>. Because <em>add</em> makes <strong>group</strong> by its inverse operation <em>sub</em>.</p>
+<p>Now we understand fenwick require monoid, so we can bring more operations into it. e.g. bit operations <em>xor</em>, <em>or</em>, <em>and</em>. Can we introduce more? Yes!</p>
+<p>We’re using above monoids with <strong>commutativity</strong> implicitly. We can actually use non-commutative monoids, e.g. bracket matching. We can use it in fenwick tree too, but in a strict way, only when our modify operation occurs in monotonic order. With careful implementation, it doesn’t require commutativity.</p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>One useful method is <strong>binary search</strong> on fenwick tree. By above discussion, we now understand it can be implemented on <em>max</em> too. Since we just need to ensure prefix sum is sorted. And by the corollary, one can easily implement it with deciding bits from high to low.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2020/05/27/v2ray-ws-tls-settings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1374,7 +1489,7 @@ or if you view as all the sum as constraint, do it without fear
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1391,7 +1506,9 @@ or if you view as all the sum as constraint, do it without fear
         
           
         
-        <span class="site-state-item-count">1</span>
+          
+        
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1450,7 +1567,15 @@ or if you view as all the sum as constraint, do it without fear
         
           
         
-        <span class="site-state-item-count">22</span>
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -1485,7 +1610,7 @@ or if you view as all the sum as constraint, do it without fear
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1551,6 +1676,8 @@ or if you view as all the sum as constraint, do it without fear
 
 
   
+    
+      
     
       
     

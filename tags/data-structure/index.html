@@ -57,19 +57,14 @@
   };
 </script>
 
-  <meta name="description" content="IntroductionThis lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$.">
-<meta name="keywords" content="dp,complexity,tree">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Complexity Analysis of DP on Tree">
-<meta property="og:url" content="https://sogapalag.github.io/2020/02/22/Complexity-Analysis-of-DP-on-Tree/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title">
+<meta property="og:url" content="https://sogapalag.github.io/tags/data-structure/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="IntroductionThis lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-22T08:50:34.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Complexity Analysis of DP on Tree">
-<meta name="twitter:description" content="IntroductionThis lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$.">
-  <link rel="canonical" href="https://sogapalag.github.io/2020/02/22/Complexity-Analysis-of-DP-on-Tree/">
+<meta name="twitter:title">
+  <link rel="canonical" href="https://sogapalag.github.io/tags/data-structure/">
 
 
 <script id="page.configurations">
@@ -78,7 +73,7 @@
   };
 </script>
 
-  <title>Complexity Analysis of DP on Tree | </title>
+  <title>Tag: data structure | </title>
   
 
 
@@ -117,7 +112,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-  <div class="container sidebar-position-right page-post-detail">
+  <div class="container sidebar-position-right ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -161,7 +156,7 @@
         
         
           
-          <li class="menu-item menu-item-tags">
+          <li class="menu-item menu-item-tags menu-item-active">
       
     
 
@@ -204,164 +199,77 @@
         <div class="content-wrap">
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
+
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>data structure<small>Tag</small>
+        </h1>
+      </div>
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2020/02/22/Complexity-Analysis-of-DP-on-Tree/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhaopeng Yan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-      <header class="post-header">
-
+      <h2 class="post-title">
+          <a class="post-title-link" href="/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/" itemprop="url">
+            
+              <span itemprop="name">A Brief Discussion on Fenwick Tree</span>
+            
+          </a>
         
-          <h1 class="post-title" itemprop="name headline">Complexity Analysis of DP on Tree
+      </h2>
 
-              
-            
-          </h1>
-        
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2021-03-30T00:10:47+08:00"
+              content="2021-03-30">
+          03-30
+        </time>
+      </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-02-22 13:57:37 / Modified: 16:50:34" itemprop="dateCreated datePublished" datetime="2020-02-22T13:57:37+08:00">2020-02-22</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$. note we ignore container complexity, e.g. set or map.</p>
-<h2 id="move-and-merge"><a href="#move-and-merge" class="headerlink" title="move and merge"></a>move and merge</h2><p>In some case $\text{dp}[v]$ can become $\text{dp}[u]$ in $O(1)$ operation, e.g.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::move</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::swap</span><br></pre></td></tr></table></figure>
-
-<p>so we let some max identity child be first, then merge remains.</p>
-<h3 id="pass-max-sub-size"><a href="#pass-max-sub-size" class="headerlink" title="pass max sub-size"></a>pass max sub-size</h3><p>\begin{align}<br>  f(u) &amp;= \sum_{i\neq 0} \text{sz}[v_i] = \text{sz}[u] - \max_i \text{sz}[v_i] \\<br>  \Rightarrow F &amp;= O(n \log n)<br>\end{align}</p>
-<details>
-<summary> proof </summary>
-for any small child, note $\text{sz}[u] > 2 \cdot \text{sz}[v]$, so each time if subtree of $v$ need merge, total size increas at least twice, since which is bounded by $n$. i.e. for each node $x$, it can remain small subtree at most $O(\log n)$ turns(not necessary consective).
-</details>
-
-<h4 id="huffman’s"><a href="#huffman’s" class="headerlink" title="huffman’s"></a>huffman’s</h4><p>what if we merge subtree like huffman’s, i.e. greedy small-to-large, and ignore heap complexity, can we get better complexity?</p>
-<p>No, consider a complete binary tree, note at each depth, you have to do $O(n)$ merge. so $O(n \log n)$.</p>
-<h3 id="pass-max-sub-depth"><a href="#pass-max-sub-depth" class="headerlink" title="pass max sub-depth"></a>pass max sub-depth</h3><p>let $\text{arm}[u]$ be max-depth of leaf of subtree of $u$.</p>
-<p>\begin{align}<br>  f(u) &amp;= \sum_{i\neq 0} \text{arm}[v_i] \\<br>  \Rightarrow F &amp;= O(n)<br>\end{align}</p>
-<details>
-<summary> proof </summary>
-One might consider if some arm $v$ keep small, as long as future arm $d, d+1, d+2, ...$, then thought $O(n\sqrt{n})$. But this doesn't fit our intuition, since we maintain arm$\leq$sz. And one can see a construction depth $1,2,3,...\sqrt{n}$, only main path need merge, and is $n$.
-
-<p>Fix some depth, let $k$ be number of nodes in this depth, note only when $k&gt;1$ we need merge, and apparently $k$ piles, after $k-1$ merge become $1$. So $F = \sum k-1 = O(n)$.</p>
-</details>
-
-
-<h2 id="convolution"><a href="#convolution" class="headerlink" title="convolution"></a>convolution</h2><h3 id="convolution-on-sub-size"><a href="#convolution-on-sub-size" class="headerlink" title="convolution on sub-size"></a>convolution on sub-size</h3><p>\begin{align}<br>  f(u) &amp;= \sum_{i} (\sum_{j&lt;i} \text{sz}[v_j])\cdot \text{sz}[v_i] \\<br>  \Rightarrow F &amp;= O(n^2)<br>\end{align}</p>
-<details>
-<summary> proof </summary>
-note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. Thus $F=O(n^2)$.
-</details>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          
-        
-        <div class="post-tags">
-            <a href="/tags/dp/" rel="tag"># dp</a>
-          
-            <a href="/tags/complexity/" rel="tag"># complexity</a>
-          
-            <a href="/tags/tree/" rel="tag"># tree</a>
-          
-        </div>
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-              <a href="/2020/01/07/Inclusion-Exclusion-Principle/" rel="next" title="Inclusion Exclusion Principle">
-                <i class="fa fa-chevron-left"></i> Inclusion Exclusion Principle
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-              <a href="/2020/02/22/Advanced-DP-Technique/" rel="prev" title="Advanced DP Technique">
-                Advanced DP Technique <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
+
+      
+    </div>
+
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
           
-
 
         </div>
           
@@ -376,17 +284,8 @@ note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. 
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -508,23 +407,6 @@ note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. 
 
         </div>
       </div>
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#move-and-merge"><span class="nav-number">2.</span> <span class="nav-text">move and merge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pass-max-sub-size"><span class="nav-number">2.1.</span> <span class="nav-text">pass max sub-size</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#huffman’s"><span class="nav-number">2.1.1.</span> <span class="nav-text">huffman’s</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pass-max-sub-depth"><span class="nav-number">2.2.</span> <span class="nav-text">pass max sub-depth</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convolution"><span class="nav-number">3.</span> <span class="nav-text">convolution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#convolution-on-sub-size"><span class="nav-number">3.1.</span> <span class="nav-text">convolution on sub-size</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
 
     </div>
   </aside>
@@ -585,10 +467,6 @@ note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. 
 
 
   
-  <script src="/js/scrollspy.js?v=7.3.0"></script>
-<script src="/js/post-details.js?v=7.3.0"></script>
-
-
 
   <script src="/js/next-boot.js?v=7.3.0"></script>
 

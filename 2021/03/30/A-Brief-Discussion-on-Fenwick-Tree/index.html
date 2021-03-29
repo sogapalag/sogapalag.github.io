@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="IntroductionThis lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$.">
-<meta name="keywords" content="dp,complexity,tree">
+  <meta name="description" content="IntroductionFenwick tree(aka. binary index tree, BIT), which core technique is about LSB(least significant bit) manipulation.Each index has the form $p+2^k$, when doing add operation, it moves to next">
+<meta name="keywords" content="algebra,fenwick,data structure,monoid">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Complexity Analysis of DP on Tree">
-<meta property="og:url" content="https://sogapalag.github.io/2020/02/22/Complexity-Analysis-of-DP-on-Tree/index.html">
+<meta property="og:title" content="A Brief Discussion on Fenwick Tree">
+<meta property="og:url" content="https://sogapalag.github.io/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="IntroductionThis lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$.">
+<meta property="og:description" content="IntroductionFenwick tree(aka. binary index tree, BIT), which core technique is about LSB(least significant bit) manipulation.Each index has the form $p+2^k$, when doing add operation, it moves to next">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-22T08:50:34.414Z">
+<meta property="og:updated_time" content="2021-03-29T16:26:00.917Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Complexity Analysis of DP on Tree">
-<meta name="twitter:description" content="IntroductionThis lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$.">
-  <link rel="canonical" href="https://sogapalag.github.io/2020/02/22/Complexity-Analysis-of-DP-on-Tree/">
+<meta name="twitter:title" content="A Brief Discussion on Fenwick Tree">
+<meta name="twitter:description" content="IntroductionFenwick tree(aka. binary index tree, BIT), which core technique is about LSB(least significant bit) manipulation.Each index has the form $p+2^k$, when doing add operation, it moves to next">
+  <link rel="canonical" href="https://sogapalag.github.io/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Complexity Analysis of DP on Tree | </title>
+  <title>A Brief Discussion on Fenwick Tree | </title>
   
 
 
@@ -215,7 +215,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2020/02/22/Complexity-Analysis-of-DP-on-Tree/">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhaopeng Yan">
@@ -229,7 +229,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Complexity Analysis of DP on Tree
+          <h1 class="post-title" itemprop="name headline">A Brief Discussion on Fenwick Tree
 
               
             
@@ -249,7 +249,7 @@
                 
               
 
-              <time title="Created: 2020-02-22 13:57:37 / Modified: 16:50:34" itemprop="dateCreated datePublished" datetime="2020-02-22T13:57:37+08:00">2020-02-22</time>
+              <time title="Created: 2021-03-30 00:10:47 / Modified: 00:26:00" itemprop="dateCreated datePublished" datetime="2021-03-30T00:10:47+08:00">2021-03-30</time>
             </span>
           
             
@@ -264,7 +264,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/implementation/" itemprop="url" rel="index"><span itemprop="name">implementation</span></a></span>
 
                 
                 
@@ -283,37 +283,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This lecture is mainly focusing on time complexity analysis of some known dp technique on tree. e.g. small-to-large, convolution. etc. wlog let $f(u)$ be required operation at vertex $u$. note we ignore container complexity, e.g. set or map.</p>
-<h2 id="move-and-merge"><a href="#move-and-merge" class="headerlink" title="move and merge"></a>move and merge</h2><p>In some case $\text{dp}[v]$ can become $\text{dp}[u]$ in $O(1)$ operation, e.g.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::move</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::swap</span><br></pre></td></tr></table></figure>
-
-<p>so we let some max identity child be first, then merge remains.</p>
-<h3 id="pass-max-sub-size"><a href="#pass-max-sub-size" class="headerlink" title="pass max sub-size"></a>pass max sub-size</h3><p>\begin{align}<br>  f(u) &amp;= \sum_{i\neq 0} \text{sz}[v_i] = \text{sz}[u] - \max_i \text{sz}[v_i] \\<br>  \Rightarrow F &amp;= O(n \log n)<br>\end{align}</p>
-<details>
-<summary> proof </summary>
-for any small child, note $\text{sz}[u] > 2 \cdot \text{sz}[v]$, so each time if subtree of $v$ need merge, total size increas at least twice, since which is bounded by $n$. i.e. for each node $x$, it can remain small subtree at most $O(\log n)$ turns(not necessary consective).
-</details>
-
-<h4 id="huffman’s"><a href="#huffman’s" class="headerlink" title="huffman’s"></a>huffman’s</h4><p>what if we merge subtree like huffman’s, i.e. greedy small-to-large, and ignore heap complexity, can we get better complexity?</p>
-<p>No, consider a complete binary tree, note at each depth, you have to do $O(n)$ merge. so $O(n \log n)$.</p>
-<h3 id="pass-max-sub-depth"><a href="#pass-max-sub-depth" class="headerlink" title="pass max sub-depth"></a>pass max sub-depth</h3><p>let $\text{arm}[u]$ be max-depth of leaf of subtree of $u$.</p>
-<p>\begin{align}<br>  f(u) &amp;= \sum_{i\neq 0} \text{arm}[v_i] \\<br>  \Rightarrow F &amp;= O(n)<br>\end{align}</p>
-<details>
-<summary> proof </summary>
-One might consider if some arm $v$ keep small, as long as future arm $d, d+1, d+2, ...$, then thought $O(n\sqrt{n})$. But this doesn't fit our intuition, since we maintain arm$\leq$sz. And one can see a construction depth $1,2,3,...\sqrt{n}$, only main path need merge, and is $n$.
-
-<p>Fix some depth, let $k$ be number of nodes in this depth, note only when $k&gt;1$ we need merge, and apparently $k$ piles, after $k-1$ merge become $1$. So $F = \sum k-1 = O(n)$.</p>
-</details>
-
-
-<h2 id="convolution"><a href="#convolution" class="headerlink" title="convolution"></a>convolution</h2><h3 id="convolution-on-sub-size"><a href="#convolution-on-sub-size" class="headerlink" title="convolution on sub-size"></a>convolution on sub-size</h3><p>\begin{align}<br>  f(u) &amp;= \sum_{i} (\sum_{j&lt;i} \text{sz}[v_j])\cdot \text{sz}[v_i] \\<br>  \Rightarrow F &amp;= O(n^2)<br>\end{align}</p>
-<details>
-<summary> proof </summary>
-note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. Thus $F=O(n^2)$.
-</details>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Fenwick tree(aka. binary index tree, BIT), which core technique is about LSB(least significant bit) manipulation.<br>Each index has the form $p+2^k$, when doing add operation, it moves to next index $p+2^k+2^k$.</p>
+<h3 id="Corollary"><a href="#Corollary" class="headerlink" title="Corollary"></a>Corollary</h3><blockquote>
+<p>Index $p+2^k$ guards $p+[2^k]$.</p>
+</blockquote>
+<p>i.e. $p+2^k$ stores operations of $p+x, \forall x, 1\leq x\leq 2^k$.</p>
+<p>Thus sum works by $\sum_{i\in[p+2^k]} = \sum_{i\in[p]} + \sum_{i\in p+[2^k]}$.</p>
+<h2 id="Algebraic-structure"><a href="#Algebraic-structure" class="headerlink" title="Algebraic structure"></a>Algebraic structure</h2><p>Before to explore additional implementation, let us talk about algebra a little, which I will write another blog to explain more. But for now, just a little.</p>
+<h3 id="Monoid"><a href="#Monoid" class="headerlink" title="Monoid"></a>Monoid</h3><p>If you familiar with fenwick tree, you might know the widely used <em>add</em> operation is not only <em>add</em>, but also <em>max</em> and <em>min</em> could be. They’re indeed <strong>monoid</strong>.</p>
+<p>Now let’s abstract them.</p>
+<ul>
+<li>$a_i + x$. =&gt; $a_i * x$. where $*$ as general monoid operation.</li>
+<li>sum prefix. =&gt; $((a_0 * a_1) *\cdots *a_n)$. work by the associativity.</li>
+</ul>
+<p>One can realize we can use <em>sub</em> for non-prefix range when using <em>add</em>, but not the case <em>max</em> or <em>min</em>. Because <em>add</em> makes <strong>group</strong> by its inverse operation <em>sub</em>.</p>
+<p>Now we understand fenwick require monoid, so we can bring more operations into it. e.g. bit operations <em>xor</em>, <em>or</em>, <em>and</em>. Can we introduce more? Yes!</p>
+<p>We’re using above monoids with <strong>commutativity</strong> implicitly. We can actually use non-commutative monoids, e.g. bracket matching. We can use it in fenwick tree too, but in a strict way, only when our modify operation occurs in monotonic order. With careful implementation, it doesn’t require commutativity.</p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>One useful method is <strong>binary search</strong> on fenwick tree. By above discussion, we now understand it can be implemented on <em>max</em> too. Since we just need to ensure prefix sum is sorted. And by the corollary, one can easily implement it with deciding bits from high to low.</p>
 
     </div>
 
@@ -325,17 +311,19 @@ note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. 
           
         
         <div class="post-tags">
-            <a href="/tags/dp/" rel="tag"># dp</a>
+            <a href="/tags/algebra/" rel="tag"># algebra</a>
           
-            <a href="/tags/complexity/" rel="tag"># complexity</a>
+            <a href="/tags/fenwick/" rel="tag"># fenwick</a>
           
-            <a href="/tags/tree/" rel="tag"># tree</a>
+            <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          
+            <a href="/tags/monoid/" rel="tag"># monoid</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2020/01/07/Inclusion-Exclusion-Principle/" rel="next" title="Inclusion Exclusion Principle">
-                <i class="fa fa-chevron-left"></i> Inclusion Exclusion Principle
+              <a href="/2020/05/27/v2ray-ws-tls-settings/" rel="next" title="v2ray (ws+tls) settings">
+                <i class="fa fa-chevron-left"></i> v2ray (ws+tls) settings
               </a>
             
           </div>
@@ -343,10 +331,6 @@ note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/02/22/Advanced-DP-Technique/" rel="prev" title="Advanced DP Technique">
-                Advanced DP Technique <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -518,7 +502,7 @@ note $f(u)$ is indeed number of pair nodes, $(x,y)$ s.t. $\text{lca}(x,y) = u$. 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#move-and-merge"><span class="nav-number">2.</span> <span class="nav-text">move and merge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pass-max-sub-size"><span class="nav-number">2.1.</span> <span class="nav-text">pass max sub-size</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#huffman’s"><span class="nav-number">2.1.1.</span> <span class="nav-text">huffman’s</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pass-max-sub-depth"><span class="nav-number">2.2.</span> <span class="nav-text">pass max sub-depth</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convolution"><span class="nav-number">3.</span> <span class="nav-text">convolution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#convolution-on-sub-size"><span class="nav-number">3.1.</span> <span class="nav-text">convolution on sub-size</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Corollary"><span class="nav-number">1.1.</span> <span class="nav-text">Corollary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algebraic-structure"><span class="nav-number">2.</span> <span class="nav-text">Algebraic structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Monoid"><span class="nav-number">2.1.</span> <span class="nav-text">Monoid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Methods"><span class="nav-number">3.</span> <span class="nav-text">Methods</span></a></li></ol></div>
             
 
           </div>
