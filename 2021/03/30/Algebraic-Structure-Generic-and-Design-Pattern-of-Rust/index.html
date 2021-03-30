@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="IntroductionIn last blog, I briefly discussed fenwick tree and monoid. Since it happens in many scenarios, e.g. segment tree. This blog begins by how to implement one fenwick tree with rust. But techn">
+<meta name="keywords" content="algebra,rust,design pattern,trait generic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algebraic Structure: Generic and Design Pattern of Rust">
+<meta property="og:url" content="https://sogapalag.github.io/2021/03/30/Algebraic-Structure-Generic-and-Design-Pattern-of-Rust/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="IntroductionIn last blog, I briefly discussed fenwick tree and monoid. Since it happens in many scenarios, e.g. segment tree. This blog begins by how to implement one fenwick tree with rust. But techn">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2021-03-29T20:25:47.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Algebraic Structure: Generic and Design Pattern of Rust">
+<meta name="twitter:description" content="IntroductionIn last blog, I briefly discussed fenwick tree and monoid. Since it happens in many scenarios, e.g. segment tree. This blog begins by how to implement one fenwick tree with rust. But techn">
+  <link rel="canonical" href="https://sogapalag.github.io/2021/03/30/Algebraic-Structure-Generic-and-Design-Pattern-of-Rust/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Algebraic Structure: Generic and Design Pattern of Rust | </title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sogapalag.github.io/2021/03/30/Algebraic-Structure-Generic-and-Design-Pattern-of-Rust/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaopeng Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Algebraic Structure: Generic and Design Pattern of Rust
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-30 00:32:09 / Modified: 04:25:47" itemprop="dateCreated datePublished" datetime="2021-03-30T00:32:09+08:00">2021-03-30</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/implementation/" itemprop="url" rel="index"><span itemprop="name">implementation</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In last blog, I briefly discussed fenwick tree and monoid. Since it happens in many scenarios, e.g. segment tree. This blog begins by how to implement one fenwick tree with rust. But technically this blog is to talk about dealing with generic, about <strong>code reuse and flexibility</strong>.<br>Before continue reading, make sure you know basic <a href="https://en.wikipedia.org/wiki/Monoid" target="_blank" rel="noopener">monoid</a> and <a href="https://www.rust-lang.org/" target="_blank" rel="noopener">rust</a>.</p>
+<h2 id="Review-on-Fenwick"><a href="#Review-on-Fenwick" class="headerlink" title="Review on Fenwick"></a>Review on Fenwick</h2><p>A widely used implementation of fenwick is something like</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">add</span></span>(i: <span class="built_in">usize</span>, x: <span class="built_in">i32</span>) &#123; <span class="comment">/* modify a[i] */</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sum</span></span>(i: <span class="built_in">usize</span>) &#123; <span class="comment">/* read a[i] */</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>We omit details, just knowing that we’re to implement something operating on array.<br>As long as we understand that fenwick require monoid indeed, and we want to generalize it for code reuse.</p>
+<h2 id="Different-Versions"><a href="#Different-Versions" class="headerlink" title="Different Versions"></a>Different Versions</h2><h3 id="Abstract-type-away-with-struct-generic-and-trait"><a href="#Abstract-type-away-with-struct-generic-and-trait" class="headerlink" title="Abstract type away with struct generic and trait"></a>Abstract type away with struct generic and trait</h3><p>This would be coming into thought by almost all programmers. For c++, <code>template &lt;typename T=int&gt;</code>. For rust, we have to add trait bound for type safety. Code as below</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fenwick</span></span>&lt;T&gt; &#123; a: <span class="built_in">Vec</span>&lt;T&gt;, &#125;</span><br><span class="line"><span class="keyword">impl</span>&lt;T: std::ops::Add&gt; Fenwick&lt;T&gt; &#123; <span class="comment">/*omit*/</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Thus by using <code>std</code> traits we abstract <code>i32</code> away with <code>T</code>, now we can use it any numeric type and our own modular integer type.</p>
+<p><strong>Pros</strong>: easy to implement, first come into thought, easy to understand.<br><strong>Cons</strong>: very limited, we can operate with <code>+</code> only.</p>
+<p>This is actually use <code>+</code> to represent any monoid operation, what if we want to use another widely used operation <code>max</code>?</p>
+<h3 id="Pass-functor-as-argument"><a href="#Pass-functor-as-argument" class="headerlink" title="Pass functor as argument"></a>Pass functor as argument</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fenwick</span></span>&lt;T&gt; &#123; a: <span class="built_in">Vec</span>&lt;T&gt;, f: <span class="function"><span class="keyword">fn</span></span>(T,T)-&gt;T, &#125;</span><br><span class="line"><span class="keyword">impl</span>&lt;T&gt; Fenwick&lt;T&gt; &#123; <span class="function"><span class="keyword">fn</span> <span class="title">new</span></span>(f: <span class="function"><span class="keyword">fn</span></span>(T,T)-&gt;T) &#123;&#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>This implementation doesn’t require trait at all, since we put it into <code>fn</code> already.</p>
+<p><strong>Pros</strong>: This is indeed a powerful way, easy to understand, can handle most cases in a rapid implementation.<br><strong>Cons</strong>: Each cases need pass one rewrite functor. Each instance own one functor. What if extend with 2D? How to separate monoid and group?</p>
+<p>Note here we might use <code>dyn Trait</code> for some generics, and to pass closure. But this will get hand much more dirty. And the key that’s not welcome basically because its <em>instance own shared behavior</em>. And for dealing with <code>+</code> and <code>max</code>, we might need to pass additional functor <code>-</code>, maybe need to wrapper it to separate inverse.</p>
+<p>But anyway this still a great method if you need a quickly usable template. And some segment trees are implemented in this style. And usually along with custom type each case.</p>
+<h3 id="NewType-generic-with-introduced-monoid-trait"><a href="#NewType-generic-with-introduced-monoid-trait" class="headerlink" title="NewType generic with introduced monoid trait"></a>NewType generic with introduced monoid trait</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Monoid</span></span> &#123; <span class="function"><span class="keyword">fn</span> <span class="title">binop</span></span>(x: <span class="keyword">Self</span>, y: <span class="keyword">Self</span>) -&gt; <span class="keyword">Self</span>; &#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Name</span></span>&lt;T&gt;(T);</span><br><span class="line"><span class="keyword">impl</span>&lt;T&gt; Monoid <span class="keyword">for</span> Name&lt;T&gt; &#123; </span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">binop</span></span>(x: <span class="keyword">Self</span>, y: <span class="keyword">Self</span>) -&gt; <span class="keyword">Self</span> &#123;</span><br><span class="line">        x + y <span class="comment">// or other function</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fenwick</span></span>&lt;T&gt; &#123; a: <span class="built_in">Vec</span>&lt;T&gt;, &#125;</span><br><span class="line"><span class="keyword">impl</span>&lt;T: Monoid&gt; Fenwick&lt;T&gt; &#123; <span class="comment">/*omit*/</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>This method, we abstract same operation on different type, e.g. <code>Name</code> can be <code>Max</code>, thus we can write some code with generic or macros.</p>
+<p><strong>Pros</strong>: Make sense, monoid is indeed $(A, *)$, for each space $A$ we use new type <code>Name&lt;T&gt;</code>, and <code>Name</code> for generic with similar behavior.<br><strong>Cons</strong>: This is not practical literally, mainly because we use type wrapper, which sacrifice the many built-in functionality of inner type <code>T</code>.</p>
+<p>To implement <a href="https://doc.rust-lang.org/book/ch19-04-advanced-types.html" target="_blank" rel="noopener">NewType</a> support some functionality, we either need to implement many other traits, e.g. <code>Display</code> and <code>From&lt;T&gt;</code>, still loss of the power of primitive type and inconvenient, and heavy macro is must needed, since you are dealing with type generic. Or implement <code>Deref</code> for escape writing bunch of code, but not idiom, and still kind of inconvenient, since <code>Name&lt;T&gt;</code> and <code>T</code> are indeed different type even if you implement <code>Deref</code>.</p>
+<h3 id="Ultimate-trait-generic-with-empty-struct"><a href="#Ultimate-trait-generic-with-empty-struct" class="headerlink" title="Ultimate: trait generic with empty struct."></a>Ultimate: trait generic with empty struct.</h3><p>Before write any code, let’s talk about <strong><a href="https://en.wikipedia.org/wiki/Algebraic_structure" target="_blank" rel="noopener">algebraic structure</a></strong> in the blog title! A monoid is $(A, *, e)$, one space, one binary operation, and identity element. In implementation, it varies by $(A, *)$, and we want it as some component, since we can attach some other component, e.g. group component inverse.<br>And note there is a subtle deference between mathematical $A$ and <code>T</code>, we don’t want them as bijection since some <code>T</code> might have similar functionality, e.g. <code>i32</code> and <code>i64</code> shared almost same integer space mathematically, but they’re different type since we’re dealing with real world restriction. Which is the part we wanna do some generic.</p>
+<p>What are we actually want for fenwick generic to support flexibility?</p>
+<ul>
+<li>A generic <code>T</code></li>
+<li>A generic <code>Op</code></li>
+</ul>
+<p>That’s it, flexible (<code>T</code>x<code>Op</code>) space, and we can write some generic code of square subspace of it.<br>The kind of counter-intuitive part instead treat <code>Op</code> as functor, which is naturally lead us to above implementations.<br>Just follow what we want, we should write something like</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fenwick</span></span>&lt;T,Op&gt; &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> a = Fenwick::&lt;<span class="built_in">i32</span>, Add&gt;; <span class="comment">// when as usage</span></span><br></pre></td></tr></table></figure>
+
+<p>Then connection between <code>T</code> and <code>Op</code> by trait <code>Monoid</code> bounds.<br>Note here <code>Op</code> is a complete empty struct, itself doesn’t provide any method, since it wouldn’t know other space <code>T</code>. It’s used just as name, to describe one genre operation, we can write generic code then.<br>And there is a subtle difference between <strong>trait generic</strong> and <strong>associated type</strong>, one can read this <a href="https://blog.thomasheartman.com/posts/on-generics-and-associated-types" target="_blank" rel="noopener">blog</a>. In short, trait generic are indeed different trait, but trait with associated type are same trait, which latter wouldn’t match our requirement, since each point on (<code>T</code>x<code>Op</code>) space are considered different from other.<br>Now we have two options</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> Monoid&lt;T&gt; <span class="keyword">for</span> Op &#123;&#125;</span><br><span class="line"><span class="keyword">impl</span> Monoid&lt;Op&gt; <span class="keyword">for</span> T &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Obviously we should choose latter, since it will bring <code>T</code> into <code>Monoid</code>‘s scope, and <code>Op</code> matches its naming functionality. I lift that to just remind <code>T</code> and <code>Op</code> are same in space sense.<br>Now an example code as below</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::marker::PhantomData;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Monoid</span></span>&lt;M&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> ID: <span class="keyword">Self</span>;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">binop</span></span>(x: <span class="keyword">Self</span>, y: <span class="keyword">Self</span>) -&gt; <span class="keyword">Self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fenwick</span></span>&lt;T,Op&gt; &#123;</span><br><span class="line">    a: <span class="built_in">Vec</span>&lt;T&gt;,</span><br><span class="line">    _m: PhantomData&lt;Op&gt;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span>&lt;T,Op&gt; Fenwick&lt;T,Op&gt;</span><br><span class="line">    <span class="keyword">where</span> T: Monoid&lt;Op&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* omit */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// for generic we must use macro since we're writing trait-impl.</span></span><br><span class="line"><span class="comment">// if we wanna work around it, need to introduce more traits into it for trait bound.</span></span><br><span class="line"><span class="comment">// or maybe in future edition we can have algebra type match feature in trait-impl i32|i64</span></span><br><span class="line"><span class="comment">// but luckily the macro is easy to do.</span></span><br><span class="line"><span class="comment">// Since below part is pretty easy to abstract same content out.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Add</span></span>;</span><br><span class="line"><span class="comment">// for exact point impl</span></span><br><span class="line"><span class="keyword">impl</span> Monoid&lt;Add&gt; <span class="keyword">for</span> <span class="built_in">i32</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ID: <span class="keyword">Self</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">binop</span></span>(x: <span class="keyword">Self</span>, y: <span class="keyword">Self</span>) -&gt; <span class="keyword">Self</span> &#123;</span><br><span class="line">        x + y</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>()&#123;</span><br><span class="line">    <span class="keyword">let</span> a = Fenwick::&lt;<span class="built_in">i32</span>,Add&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Pros</strong>: match exactly we want, idiomatic, flexible, easy to API use.<br><strong>Cons</strong>: too many preliminaries lead to this generic implementation.</p>
+<p>For more implementation detail, see my library(TODO unpublished now).</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Rust provide various generic, different choice would result different design pattern, think twice before implementation.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/algebra/" rel="tag"># algebra</a>
+          
+            <a href="/tags/rust/" rel="tag"># rust</a>
+          
+            <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+          
+            <a href="/tags/trait-generic/" rel="tag"># trait generic</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2021/03/30/A-Brief-Discussion-on-Fenwick-Tree/" rel="next" title="A Brief Discussion on Fenwick Tree">
+                <i class="fa fa-chevron-left"></i> A Brief Discussion on Fenwick Tree
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhaopeng Yan</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/sogapalag" title="GitHub &rarr; https://github.com/sogapalag" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review-on-Fenwick"><span class="nav-number">2.</span> <span class="nav-text">Review on Fenwick</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Different-Versions"><span class="nav-number">3.</span> <span class="nav-text">Different Versions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract-type-away-with-struct-generic-and-trait"><span class="nav-number">3.1.</span> <span class="nav-text">Abstract type away with struct generic and trait</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-functor-as-argument"><span class="nav-number">3.2.</span> <span class="nav-text">Pass functor as argument</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NewType-generic-with-introduced-monoid-trait"><span class="nav-number">3.3.</span> <span class="nav-text">NewType generic with introduced monoid trait</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ultimate-trait-generic-with-empty-struct"><span class="nav-number">3.4.</span> <span class="nav-text">Ultimate: trait generic with empty struct.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhaopeng Yan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
