@@ -65,7 +65,7 @@
 <meta property="og:site_name">
 <meta property="og:description" content="IntroductionIn last blog, I briefly discussed fenwick tree and monoid. Since it happens in many scenarios, e.g. segment tree. This blog begins by how to implement one fenwick tree with rust. But techn">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-29T20:25:47.205Z">
+<meta property="og:updated_time" content="2021-04-02T07:27:47.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Algebraic Structure: Generic and Design Pattern of Rust">
 <meta name="twitter:description" content="IntroductionIn last blog, I briefly discussed fenwick tree and monoid. Since it happens in many scenarios, e.g. segment tree. This blog begins by how to implement one fenwick tree with rust. But techn">
@@ -249,11 +249,21 @@
                 
               
 
-              <time title="Created: 2021-03-30 00:32:09 / Modified: 04:25:47" itemprop="dateCreated datePublished" datetime="2021-03-30T00:32:09+08:00">2021-03-30</time>
+              <time title="Created: 2021-03-30 00:32:09" itemprop="dateCreated datePublished" datetime="2021-03-30T00:32:09+08:00">2021-03-30</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2021-04-02 15:27:47" itemprop="dateModified" datetime="2021-04-02T15:27:47+08:00">2021-04-02</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -320,7 +330,7 @@
 <p>Obviously we should choose latter, since it will bring <code>T</code> into <code>Monoid</code>‘s scope, and <code>Op</code> matches its naming functionality. I lift that to just remind <code>T</code> and <code>Op</code> are same in space sense.<br>Now an example code as below</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::marker::PhantomData;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Monoid</span></span>&lt;M&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> ID: <span class="keyword">Self</span>;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">binop</span></span>(x: <span class="keyword">Self</span>, y: <span class="keyword">Self</span>) -&gt; <span class="keyword">Self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fenwick</span></span>&lt;T,Op&gt; &#123;</span><br><span class="line">    a: <span class="built_in">Vec</span>&lt;T&gt;,</span><br><span class="line">    _m: PhantomData&lt;Op&gt;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span>&lt;T,Op&gt; Fenwick&lt;T,Op&gt;</span><br><span class="line">    <span class="keyword">where</span> T: Monoid&lt;Op&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* omit */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// for generic we must use macro since we're writing trait-impl.</span></span><br><span class="line"><span class="comment">// if we wanna work around it, need to introduce more traits into it for trait bound.</span></span><br><span class="line"><span class="comment">// or maybe in future edition we can have algebra type match feature in trait-impl i32|i64</span></span><br><span class="line"><span class="comment">// but luckily the macro is easy to do.</span></span><br><span class="line"><span class="comment">// Since below part is pretty easy to abstract same content out.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Add</span></span>;</span><br><span class="line"><span class="comment">// for exact point impl</span></span><br><span class="line"><span class="keyword">impl</span> Monoid&lt;Add&gt; <span class="keyword">for</span> <span class="built_in">i32</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ID: <span class="keyword">Self</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">binop</span></span>(x: <span class="keyword">Self</span>, y: <span class="keyword">Self</span>) -&gt; <span class="keyword">Self</span> &#123;</span><br><span class="line">        x + y</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>()&#123;</span><br><span class="line">    <span class="keyword">let</span> a = Fenwick::&lt;<span class="built_in">i32</span>,Add&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>Pros</strong>: match exactly we want, idiomatic, flexible, easy to API use.<br><strong>Cons</strong>: too many preliminaries lead to this generic implementation.</p>
+<p><strong>Pros</strong>: match exactly we want, idiomatic, flexible, easy to API use.<br><strong>Cons</strong>: too many preliminaries lead to this generic implementation. Cannot use the operator overload benefit.</p>
 <p>For more implementation detail, see my library(TODO unpublished now).</p>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Rust provide various generic, different choice would result different design pattern, think twice before implementation.</p>
 
@@ -354,6 +364,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2021/05/11/Implementing-Tree-like-Data-Structure-in-Rust/" rel="prev" title="Implementing Tree-like Data Structure in Rust">
+                Implementing Tree-like Data Structure in Rust <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -405,7 +419,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -497,7 +511,9 @@
         
           
         
-        <span class="site-state-item-count">29</span>
+          
+        
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
